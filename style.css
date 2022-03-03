@@ -3,18 +3,49 @@
     width: auto;
 }
 
-.input-theme {
-    background-color: rgb(231, 231, 231);
-    font-size: 20px;
-    padding: 25px;
-}
-
 .form-control:focus {
     outline: 0;
     background-color: rgb(231, 231, 231);
     box-shadow: 0 0 0 0.25rem rgb(0 0 0 / 15%);
 }
 
+.input-theme {
+    background-color: rgb(231, 231, 231);
+    font-size: 20px;
+    padding: 25px;
+}
+
+.input-drop-1 {
+    background-color: #3282f7;
+    font-size: 20px;
+    height: 80px;
+    width: 190px;
+}
+
+.input-drop-2 {
+    background-color: #68d9a4;
+    font-size: 20px;
+    height: 80px;
+    width: 190px;
+}
+
+.input-drop-3 {
+    background-color: #ed6454;
+    font-size: 20px;
+    height: 80px;
+    width: 190px;
+}
+
 i.fa-solid.fa-magnifying-glass {
-    font-size: x-large;
+    font-size: 30px;
+    color: black;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.fa-solid {
+    color: white;
+    font-size: 25px;
 }

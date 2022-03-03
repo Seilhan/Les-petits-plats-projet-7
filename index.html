@@ -14,35 +14,93 @@
 </head>
 
 <body>
+
     <header>
+
         <div class="container">
             <div class="row">
                 <div class="col-3 mx-auto py-lg-4">
                     <img id="logo" src="/assets/logo.png" alt="Logo les petits plats" tabindex="0">
                 </div>
             </div>
+        </div>
+
+    </header>
+
+    <div class="container">
+        <div class="row">
             <form class="d-flex">
                 <div class="position-relative flex-grow-1">
-                    <input class="form-control input-theme border-0" type="search " placeholder="Rechercher une recette " aria-label="Search ">
+                    <input class="form-control input-theme border-0" type="search " placeholder="Rechercher une recette " aria-label="Search">
                     <div class="position-absolute w-100 h-100 top-0 l-0 d-flex align-items-center justify-content-end px-3 pe-none ">
                         <i class="fa-solid fa-magnifying-glass"></i>
                     </div>
                 </div>
             </form>
-            <div class="dropdown py-lg-4">
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ingredients
-                </button>
-                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenuButton2" data-bs-toggle="dropdown" aria-expanded="false">
-                        Appareils
-                </button>
-                <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton3" data-bs-toggle="dropdown" aria-expanded="false">
-                        Ustensiles
-                 </button>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="dropdown pt-4 d-inline-flex">
+            <div class="position-relative dropdown-toggle me-3" id="dropdownMenuButton1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                <input class="form-control input-drop-1 border-0" type="search " placeholder="Ingredients" aria-label="Search ">
+                <div class="position-absolute w-100 h-100 top-0 l-0 d-flex align-items-center justify-content-end px-3 pe-none ">
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <div class="d-grid p-4">
+                    <div>
+                        <a href="#"></a>
+                    </div>
+                    <div>
+                        <a href=""></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="position-relative dropdown-toggle me-3" id="dropdownMenuButton2" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                <input class="form-control input-drop-2 border-0" type="search " placeholder="Appareils " aria-label="Search ">
+                <div class="position-absolute w-100 h-100 top-0 l-0 d-flex align-items-center justify-content-end px-3 pe-none ">
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton2">
+                <div class="d-grid p-4">
+                    <div>
+                        <a href="#"></a>
+                    </div>
+                    <div>
+                        <a href=""></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="position-relative dropdown-toggle" id="dropdownMenuButton3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
+                <input class="form-control input-drop-3 border-0" type="search " placeholder="Ustensiles " aria-label="Search ">
+                <div class="position-absolute w-100 h-100 top-0 l-0 d-flex align-items-center justify-content-end px-3 pe-none ">
+                    <i class="fa-solid fa-angle-down"></i>
+                </div>
+            </div>
+
+            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton3">
+                <div class="d-grid p-4">
+                    <div>
+                        <a href="#"></a>
+                    </div>
+                    <div>
+                        <a href=""></a>
+                    </div>
+                </div>
             </div>
         </div>
 
-    </header>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+
 </body>
 
 </html>
