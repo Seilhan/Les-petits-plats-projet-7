@@ -26,6 +26,10 @@
     color: white;
 }
 
+.input-drop-1:focus {
+    background-color: #3282f7;
+}
+
 .input-drop-2 {
     background-color: #68d9a4;
     font-size: 20px;
@@ -37,6 +41,10 @@
     color: white;
 }
 
+.input-drop-2:focus {
+    background-color: #68d9a4;
+}
+
 .input-drop-3 {
     background-color: #ed6454;
     font-size: 20px;
@@ -46,6 +54,10 @@
 
 .input-drop-3::placeholder {
     color: white;
+}
+
+.input-drop-3:focus {
+    background-color: #ed6454;
 }
 
 i.fa-solid.fa-magnifying-glass {
@@ -60,4 +72,22 @@ i.fa-solid.fa-magnifying-glass {
 .fa-solid {
     color: white;
     font-size: 25px;
+}
+
+.grid-1 {
+    background-color: #3282f7;
+    width: 395px;
+    height: 180px;
+}
+
+.grid-2 {
+    background-color: #68d9a4;
+    width: 395px;
+    height: 180px;
+}
+
+.grid-3 {
+    background-color: #ed6454;
+    width: 395px;
+    height: 180px;
 }
