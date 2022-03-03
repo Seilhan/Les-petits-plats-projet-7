@@ -1,5 +1,7 @@
 # OpenClassrooms - Développeur Front-end
 
+![Les petis plats logo](/assets/logo.png)
+
 ## <a id="start">Projet 7 - Les petits plats</a>
 
 Les Petits Plats est un site proposant des recettes de cuisine.
