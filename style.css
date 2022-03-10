@@ -1,25 +1,37 @@
+:root {
+    --bs-font-sans-serif: 'Lato', sans-serif;
+}
+
 #logo {
-    height: 100px;
-    width: auto;
+    height: 93px;
+    width: 268px;
 }
 
 .form-control:focus {
     outline: 0;
     background-color: rgb(231, 231, 231);
     box-shadow: 0 0 0 0.25rem rgb(0 0 0 / 15%);
+    color: white;
 }
 
 .input-theme {
     background-color: rgb(231, 231, 231);
     font-size: 20px;
     padding: 25px;
+    height: 69px;
+}
+
+.input-theme::placeholder {
+    height: 22px;
+    opacity: 25%;
+    font-weight: 400;
 }
 
 .input-drop-1 {
     background-color: #3282f7;
     font-size: 20px;
-    height: 80px;
-    width: 190px;
+    height: 69px;
+    width: 170px;
 }
 
 .input-drop-1::placeholder {
@@ -33,8 +45,8 @@
 .input-drop-2 {
     background-color: #68d9a4;
     font-size: 20px;
-    height: 80px;
-    width: 190px;
+    height: 69px;
+    width: 170px;
 }
 
 .input-drop-2::placeholder {
@@ -48,8 +60,8 @@
 .input-drop-3 {
     background-color: #ed6454;
     font-size: 20px;
-    height: 80px;
-    width: 190px;
+    height: 69px;
+    width: 170px;
 }
 
 .input-drop-3::placeholder {
@@ -67,6 +79,14 @@ i.fa-solid.fa-magnifying-glass {
 
 .dropdown-toggle::after {
     display: none;
+}
+
+.dropdown-menu {
+    padding: 0;
+    border-radius: 5px;
+    margin-top: -7px !important;
+    overflow: hidden;
+    border: 0;
 }
 
 .fa-solid {
@@ -90,4 +110,54 @@ i.fa-solid.fa-magnifying-glass {
     background-color: #ed6454;
     width: 395px;
     height: 180px;
+}
+
+.card {
+    width: 380px;
+    height: 364px;
+}
+
+.card-img-top {
+    width: 380px;
+    height: 178px;
+    background-color: #C7BEBE;
+}
+
+.card-body {
+    background-color: #E7E7E7;
+    width: 380px;
+    height: 186px;
+}
+
+.card-content {
+    padding-bottom: 20px;
+    ;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 400;
+    margin-bottom: 0;
+}
+
+.card-subtitle {
+    font-weight: 700;
+    line-height: 21.6px;
+}
+
+.bi-clock {
+    margin-right: 7px;
+    line-height: 21.6px;
+}
+
+.card ul {
+    list-style: none;
+    font-size: 12px;
+    font-weight: 400;
+    padding: 0;
+}
+
+.card-text {
+    font-size: 12px;
+    font-weight: 400;
 }
