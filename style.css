@@ -112,52 +112,63 @@ i.fa-solid.fa-magnifying-glass {
     height: 180px;
 }
 
+.cardlist {
+    padding: 0 48px 0 48px;
+}
+
 .card {
     width: 380px;
     height: 364px;
+    border: none;
+    overflow: hidden;
 }
 
 .card-img-top {
-    width: 380px;
     height: 178px;
     background-color: #C7BEBE;
 }
 
 .card-body {
-    background-color: #E7E7E7;
-    width: 380px;
     height: 186px;
-}
-
-.card-content {
-    padding-bottom: 20px;
-    ;
+    background-color: #E7E7E7;
 }
 
 .card-title {
-    font-size: 18px;
+    font-family: Lato;
     font-weight: 400;
-    margin-bottom: 0;
+    font-size: 18px;
+    margin: 0;
+}
+
+.bi bi-clock {
+    width: 20px;
+    height: 20px;
 }
 
 .card-subtitle {
+    font-family: Lato;
     font-weight: 700;
-    line-height: 21.6px;
 }
 
-.bi-clock {
-    margin-right: 7px;
-    line-height: 21.6px;
-}
-
-.card ul {
+ul {
     list-style: none;
+    font-family: Lato;
+    font-weight: 700;
     font-size: 12px;
-    font-weight: 400;
     padding: 0;
 }
 
 .card-text {
-    font-size: 12px;
+    font-family: Roboto;
     font-weight: 400;
+    font-size: 12px;
+    height: 109px;
+    width: 171px;
+    left: 191px;
+    top: 240px;
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 7;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
 }

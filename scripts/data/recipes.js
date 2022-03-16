@@ -18,7 +18,7 @@ const recipes = [{
             },
             {
                 "ingredient": "Sucre",
-                "quantite": 30,
+                "quantity": 30,
                 "unit": "grammes"
             },
             {
@@ -1674,4 +1674,4 @@ const recipes = [{
     }
 ]
 
-export default { recipes }
+export default recipes
