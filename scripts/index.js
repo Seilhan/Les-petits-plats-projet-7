@@ -1,5 +1,5 @@
 /* Importing the data from the file `recipes.js` into the variable `recipes`. */
-import recipes from "./data/recipes.js";
+import recipes from "/data/recipes.js";
 
 // console.log(recipes);
 
