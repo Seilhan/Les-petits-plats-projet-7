@@ -11,6 +11,7 @@ import recipes from "./data/recipes.js";
  */
 
 function buildCard(data) {
+
     // console.log(data);
 
     const cardElement = document.createElement('div');
@@ -27,12 +28,7 @@ function buildCard(data) {
             </div>
         </div>
         <div class="d-flex">
-            <ul class="col-6 ingerdients">
-                <li>Lait de coco: 400 ml</li>
-                <li>Jus de citron: 2</li>
-                <li>Crème de coco: 4 cuillères</li>
-                <li>Sucre: 20g</li>
-                <li>Glaçons: 2</li>
+            <ul class="col-6 ingredients">
             </ul>
             <p class="col-6 m-0 card-text">
             ${data.description}
@@ -42,17 +38,17 @@ function buildCard(data) {
 </div>`;
 
 
-    const ingredients = cardElement.querySelector('.ingerdients');
+    const ingredients = cardElement.querySelector('.ingredients');
     data.ingredients.forEach(element => {
         const ingredient = document.createElement('li');
-        ingredient.innerHTML = `<strong>${element.ingredient} : </strong>${element.quantity  || ''} ${element.unit || ''}`;
+        ingredient.innerHTML = `${element.ingredient} : ${element.quantity  || ''} ${element.unit || ''}`;
         ingredients.appendChild(ingredient);
     });
 
     return cardElement
+
 }
-
-
+/* Creating a card for each recipe in the recipes array. */
 const cardlist = document.querySelector('.cardlist')
 
 recipes.forEach(el => {
@@ -62,3 +58,35 @@ recipes.forEach(el => {
 
 const card = buildCard(recipes[0]);
 cardlist.appendChild(card)
+
+
+
+
+/* Adding an event listener to the search bar. When the user types in the search bar, the function
+`filterElements` is called. */
+
+const searchBar = document.querySelector('.input-theme');
+
+searchBar.addEventListener("keyup", (e) => {
+    const searchedLetters = e.target.value;
+    const cards = document.querySelectorAll(".card");
+    filterElements(searchedLetters, cards);
+});
+
+/**
+ * Given a string of letters and a list of elements, hide all elements that don't contain the letters
+ * @param letters - The letters that you want to filter by.
+ * @param elements - The elements to filter.
+ */
+function filterElements(letters, elements) {
+    if (letters.length > 2) {
+        for (let i = 0; i < elements.length; i++) {
+            if (elements[i].textContent.toLowerCase().includes(letters)) {
+                elements[i].style.display = "block";
+            } else {
+                elements[i].style.display = "none";
+            }
+
+        }
+    }
+}
