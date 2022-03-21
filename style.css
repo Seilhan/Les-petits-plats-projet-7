@@ -15,16 +15,21 @@
 }
 
 .input-theme {
-    background-color: rgb(231, 231, 231);
+    background-color: #E7E7E7;
     font-size: 20px;
     padding: 25px;
     height: 69px;
+}
+
+.input-theme:focus {
+    color: black;
 }
 
 .input-theme::placeholder {
     height: 22px;
     opacity: 25%;
     font-weight: 400;
+    font-family: Lato;
 }
 
 .input-drop-1 {
@@ -87,6 +92,19 @@ i.fa-solid.fa-magnifying-glass {
     margin-top: -7px !important;
     overflow: hidden;
     border: 0;
+    overflow-y: scroll;
+}
+
+.liste-item {
+    width: 96px;
+    height: 22px;
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 18px;
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 21.6px;
 }
 
 .fa-solid {
@@ -94,19 +112,19 @@ i.fa-solid.fa-magnifying-glass {
     font-size: 25px;
 }
 
-.grid-1 {
+.container.blue {
     background-color: #3282f7;
     width: 395px;
     height: 180px;
 }
 
-.grid-2 {
+.container.green {
     background-color: #68d9a4;
     width: 395px;
     height: 180px;
 }
 
-.grid-3 {
+.container.red {
     background-color: #ed6454;
     width: 395px;
     height: 180px;

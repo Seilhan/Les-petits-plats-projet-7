@@ -1,23 +1,18 @@
-/* Importing the data from the file `recipes.js` into the variable `recipes`. */
+/* Importation des données du fichier `recipes.js` dans la variable `recipes`. */
 import recipes from "./data/recipes.js";
 
-// console.log(recipes);
-
 /**
- * Create a card element, add the class `cardlist`, add the ingredients list, and return the card
- * element
- * @param data - The data object that is passed to the function.
- * @returns A div element with a class of cardlist.
+ * Créez un élément de carte, ajoutez la classe `cardlist`, ajoutez la liste des ingrédients et renvoyez la carte
+ * élément
+ * @param data - L'objet de données qui est passé à la fonction.
+ * @returns Un élément div avec une classe de cardlist.
  */
 
 function buildCard(data) {
+    const cardElement = document.createElement("div");
+    cardElement.setAttribute("class", "col-md-4 col-sm-6 pb-4");
 
-    // console.log(data);
-
-    const cardElement = document.createElement('div');
-    cardElement.setAttribute('class', 'col-md-4 col-sm-6 pb-4')
-
-    cardElement.innerHTML = ` <div class="card">
+    cardElement.innerHTML = ` <div class="card" tabindex="0">
     <img class="card-img-top" alt="" />
     <div class="card-body">
         <div class="d-flex flex-row mb-3 justify-content-between gap-2">
@@ -37,56 +32,65 @@ function buildCard(data) {
     </div>
 </div>`;
 
-
-    const ingredients = cardElement.querySelector('.ingredients');
-    data.ingredients.forEach(element => {
-        const ingredient = document.createElement('li');
-        ingredient.innerHTML = `${element.ingredient} : ${element.quantity  || ''} ${element.unit || ''}`;
+    const ingredients = cardElement.querySelector(".ingredients");
+    data.ingredients.forEach((element) => {
+        const ingredient = document.createElement("li");
+        ingredient.innerHTML = `${element.ingredient} : ${element.quantity || ""} ${
+      element.unit || ""
+    }`;
         ingredients.appendChild(ingredient);
     });
 
-    return cardElement
-
+    return cardElement;
 }
-/* Creating a card for each recipe in the recipes array. */
-const cardlist = document.querySelector('.cardlist')
-
-recipes.forEach(el => {
-    const card = buildCard(el);
-    cardlist.appendChild(card)
-})
-
-const card = buildCard(recipes[0]);
-cardlist.appendChild(card)
-
-
-
-
-/* Adding an event listener to the search bar. When the user types in the search bar, the function
-`filterElements` is called. */
-
-const searchBar = document.querySelector('.input-theme');
-
-searchBar.addEventListener("keyup", (e) => {
-    const searchedLetters = e.target.value;
-    const cards = document.querySelectorAll(".card");
-    filterElements(searchedLetters, cards);
-});
+/* Création d'une carte pour chaque recette dans le tableau des recettes. */
+const cardlist = document.querySelector(".cardlist");
+const noresult = document.createElement("div");
+noresult.innerText = "Aucune recette ne correspond à votre critère...";
 
 /**
- * Given a string of letters and a list of elements, hide all elements that don't contain the letters
- * @param letters - The letters that you want to filter by.
- * @param elements - The elements to filter.
+ * Il prend les données de l'API et crée une carte pour chaque élément des données.
+ * @param data - Les données à afficher dans la carte.
  */
-function filterElements(letters, elements) {
-    if (letters.length > 2) {
-        for (let i = 0; i < elements.length; i++) {
-            if (elements[i].textContent.toLowerCase().includes(letters)) {
-                elements[i].style.display = "block";
-            } else {
-                elements[i].style.display = "none";
-            }
-
-        }
+function addCardstoDom(data) {
+    cardlist.innerHTML = "";
+    if (data.length == 0) {
+        cardlist.appendChild(noresult);
+    } else {
+        data.forEach((el) => {
+            const card = buildCard(el);
+            cardlist.appendChild(card);
+        });
     }
 }
+
+/**
+ * Étant donné un texte de recherche, filtrez le tableau des recettes et renvoyez le tableau filtré
+ * @param searchtxt - Le texte à rechercher.
+ */
+function filterCards(searchtxt) {
+    const result = recipes.filter((a) => {
+        const title = a.name.toLowerCase();
+        return title.includes(searchtxt);
+    });
+    addCardstoDom(result);
+}
+
+/* Le code qui permet de filtrer les recettes par le nom de la recette. */
+const searchBar = document.querySelector(".input-theme");
+
+searchBar.addEventListener("keyup", (e) => {
+    if (e.target.value.length > 2) {
+        const searchtxt = e.target.value.toLowerCase();
+        filterCards(searchtxt);
+    } else {
+        addCardstoDom(recipes);
+    }
+});
+
+// Creation de toutes les recettes
+
+addCardstoDom(recipes);
+// addIngredienttoDom(recipes);
+// addAppareiltoDom(recipes);
+// addUstensiletoDom(recipes);
