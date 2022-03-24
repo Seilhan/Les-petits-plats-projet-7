@@ -37,6 +37,7 @@
     font-size: 20px;
     height: 69px;
     width: 170px;
+    transition: .2s all;
 }
 
 .input-drop-1::placeholder {
@@ -52,6 +53,7 @@
     font-size: 20px;
     height: 69px;
     width: 170px;
+    transition: .2s all;
 }
 
 .input-drop-2::placeholder {
@@ -67,6 +69,7 @@
     font-size: 20px;
     height: 69px;
     width: 170px;
+    transition: .2s all;
 }
 
 .input-drop-3::placeholder {
@@ -93,14 +96,40 @@ i.fa-solid.fa-magnifying-glass {
     overflow: hidden;
     border: 0;
     overflow-y: scroll;
+    opacity: 0;
+    max-width: 542px;
+    transition: .2s opacity;
 }
 
-.liste-item {
-    width: 96px;
-    height: 22px;
+.dropdown-menu.blue {
+    background-color: #3282f7;
+    max-height: 300px;
+}
+
+.dropdown-menu.green {
+    background-color: #68d9a4;
+    max-height: 300px;
+}
+
+.dropdown-menu.red {
+    background-color: #ed6454;
+    max-height: 300px;
+}
+
+.list__ingredients {
     font-family: Lato;
     font-weight: 400;
-    font-size: 18px;
+    font-size: 15px;
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 21.6px;
+}
+
+.list__appareils {
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 15px;
     color: #FFFFFF;
     text-decoration: none;
     cursor: pointer;
@@ -112,23 +141,19 @@ i.fa-solid.fa-magnifying-glass {
     font-size: 25px;
 }
 
-.container.blue {
-    background-color: #3282f7;
-    width: 395px;
-    height: 180px;
-}
 
-.container.green {
+/* .container.green {
     background-color: #68d9a4;
     width: 395px;
     height: 180px;
-}
+} */
 
-.container.red {
+
+/* .container.red {
     background-color: #ed6454;
     width: 395px;
     height: 180px;
-}
+} */
 
 .cardlist {
     padding: 0 48px 0 48px;
@@ -189,4 +214,22 @@ ul {
     -webkit-line-clamp: 7;
     -webkit-box-orient: vertical;
     text-overflow: ellipsis;
+}
+
+.list__ingredients {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.list__appareils {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
+}
+
+.list__ustensiles {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 10px;
 }
