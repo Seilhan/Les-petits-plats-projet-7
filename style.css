@@ -32,57 +32,51 @@
     font-family: Lato;
 }
 
-.input-drop-1 {
-    background-color: #3282f7;
+input.input-drop {
     font-size: 20px;
     height: 69px;
     width: 170px;
     transition: .2s all;
 }
 
-.input-drop-1::placeholder {
-    color: white;
-}
-
-.input-drop-1:focus {
+.blue {
     background-color: #3282f7;
+    max-height: 300px;
 }
 
-.input-drop-2 {
+.green {
     background-color: #68d9a4;
-    font-size: 20px;
-    height: 69px;
-    width: 170px;
-    transition: .2s all;
+    max-height: 300px;
 }
 
-.input-drop-2::placeholder {
-    color: white;
-}
-
-.input-drop-2:focus {
-    background-color: #68d9a4;
-}
-
-.input-drop-3 {
+.red {
     background-color: #ed6454;
-    font-size: 20px;
-    height: 69px;
-    width: 170px;
-    transition: .2s all;
+    max-height: 300px;
 }
 
-.input-drop-3::placeholder {
+input.input-drop::placeholder {
     color: white;
 }
 
-.input-drop-3:focus {
+input.blue:focus {
+    background-color: #3282f7;
+}
+input.green:focus {
+    background-color: #68d9a4;
+}
+input.red:focus {
     background-color: #ed6454;
 }
+
+
 
 i.fa-solid.fa-magnifying-glass {
     font-size: 30px;
     color: black;
+}
+
+.dropdown-toggle {
+    border-radius: 5px;
 }
 
 .dropdown-toggle::after {
@@ -97,23 +91,9 @@ i.fa-solid.fa-magnifying-glass {
     border: 0;
     overflow-y: scroll;
     opacity: 0;
+    width: 100%;
     max-width: 542px;
     transition: .2s opacity;
-}
-
-.dropdown-menu.blue {
-    background-color: #3282f7;
-    max-height: 300px;
-}
-
-.dropdown-menu.green {
-    background-color: #68d9a4;
-    max-height: 300px;
-}
-
-.dropdown-menu.red {
-    background-color: #ed6454;
-    max-height: 300px;
 }
 
 .list__ingredients {
@@ -136,24 +116,20 @@ i.fa-solid.fa-magnifying-glass {
     line-height: 21.6px;
 }
 
+.list__ustensiles {
+    font-family: Lato;
+    font-weight: 400;
+    font-size: 15px;
+    color: #FFFFFF;
+    text-decoration: none;
+    cursor: pointer;
+    line-height: 21.6px;
+}
+
 .fa-solid {
     color: white;
     font-size: 25px;
 }
-
-
-/* .container.green {
-    background-color: #68d9a4;
-    width: 395px;
-    height: 180px;
-} */
-
-
-/* .container.red {
-    background-color: #ed6454;
-    width: 395px;
-    height: 180px;
-} */
 
 .cardlist {
     padding: 0 48px 0 48px;

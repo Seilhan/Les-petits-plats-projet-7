@@ -41,7 +41,7 @@ function buildCard(data) {
     });
 
     return cardElement;
-}
+};
 /* Création d'une carte pour chaque recette dans le tableau des recettes. */
 const cardlist = document.querySelector(".cardlist");
 const ingredientslist = document.querySelector(".list__ingredients");
@@ -52,7 +52,6 @@ noresult.innerText = "Aucune recette ne correspond à votre critère...";
  * Il prend les données de l'API et crée une carte pour chaque élément des données.
  * @param data - Les données à afficher dans la carte.
  */
-
 function addCardstoDom(data) {
     cardlist.innerHTML = "";
     if (data.length == 0) {
@@ -67,38 +66,72 @@ function addCardstoDom(data) {
 
 function addIngredienttoDom(data) {
     ingredientslist.innerHTML = "";
+    const tableIng = [];
+
     data.forEach((el) => {
         el.ingredients.forEach((ing) => {
-            const ingredient = document.createElement("li");
-            ingredient.innerHTML = ing.ingredient;
-            ingredientslist.appendChild(ingredient);
-            // console.log(ing.ingredient);
+            tableIng.push(ing.ingredient.toLowerCase().trim());
         });
     });
+    const finalTable = [...new Set(tableIng)];
+    finalTable.forEach(ing => {
+            const ingredient = document.createElement("li");
+            ingredient.innerHTML = ing;
+            ingredientslist.appendChild(ingredient);
+    });
 }
+
 const appareilslist = document.querySelector(".list__appareils");
 
 function addAppareiltoDom(data) {
-    console.log(data);
     appareilslist.innerHTML = "";
+    const tableApp = [];
+
     data.forEach((el) => {
+        tableApp.push(el.appliance.toLowerCase());
+        });
+        
+    const finalTableApp =  [...new Set(tableApp)];
+    finalTableApp.forEach( el => {
         const appereils = document.createElement("li");
-        appereils.innerHTML = el.appliance;
+        appereils.innerHTML = el;
         appareilslist.appendChild(appereils);
-        // console.log(el.appliance);
-    });
+        // console.log(el);
+    });   
+       
 }
 const ustensileslist = document.querySelector(".list__ustensiles");
 
 function addUstensiletoDom(data) {
     ustensileslist.innerHTML = "";
+    const tableUst = [];
+
     data.forEach((el) => {
-        const ustensiles = document.createElement("li");
-        ustensiles.innerHTML = el.ustensils;
-        ustensileslist.appendChild(ustensiles);
-        console.log(ust.ustensils);
+        el.ustensils.forEach((ust) => {
+            tableUst.push(ust.toLowerCase());
+        });
+    });
+    const finalTableUst = [...new Set(tableUst)];
+    finalTableUst.forEach(ust => {
+            const ustensiles = document.createElement("li");
+            ustensiles.innerHTML = ust;
+            ustensileslist.appendChild(ustensiles);
     });
 }
+// function addUstensiletoDom(data) {
+//     ustensileslist.innerHTML = "";
+//     data.forEach((el) => {
+//         el.ustensils.forEach((ust) => {
+//             const ustensiles = document.createElement("li");
+//             ustensiles.innerHTML = ust;
+//             ustensileslist.appendChild(ustensiles);
+//             // console.log(ust);
+//         });
+//     });
+// }
+
+
+
 /**
  * Étant donné un texte de recherche, filtrez le tableau des recettes et renvoyez le tableau filtré
  * @param searchtxt - Le texte à rechercher.
@@ -109,8 +142,9 @@ function filterCards(searchtxt) {
         const title = a.name.toLowerCase();
         return title.includes(searchtxt);
     });
+   
     addCardstoDom(result);
-    //TODO: 1: vider les ingredients du dom 2: addingredienttodom +result
+    //TODO: 1: vider les ingredients du dom 2: addingredienttodom +result 
 }
 
 /* Le code qui permet de filtrer les recettes par le nom de la recette. */
@@ -131,16 +165,25 @@ addIngredienttoDom(recipes);
 addAppareiltoDom(recipes);
 addUstensiletoDom(recipes);
 
-const inputd1 = document.querySelector(".input-drop-1");
-const dropdm = document.querySelector(".dropdown-menu");
-const dropdowns = document.querySelector(".dropdown-toggle");
-dropdowns.addEventListener("show.bs.dropdown", function() {
-    inputd1.style.width = "542px";
-    setTimeout(() => {
-        dropdm.style.opacity = "1";
-    }, 10);
-});
-dropdowns.addEventListener("hide.bs.dropdown", function() {
-    inputd1.style.width = "170px";
-    dropdm.style.opacity = "0";
-});
+
+const dropdowns = document.querySelectorAll(".dropdown-toggle");
+
+dropdowns.forEach(el => {
+    el.addEventListener("show.bs.dropdown", function(el) {
+            const inputEl = el.target.querySelector('.input-drop');
+            const dropdmenus = document.querySelector(el.target.id);
+        
+                inputEl.style.width = "542px";
+            setTimeout(() => {
+                dropdmenus.style.opacity = "1";
+            }, 10);
+        });
+
+    el.addEventListener("hide.bs.dropdown", function(el) {
+        const inputEl = el.target.querySelector('.input-drop');
+        const dropdmenus = document.querySelector(el.target.id);
+            inputEl.style.width = "170px";
+            dropdmenus.style.opacity = "0";
+    });           
+})
+
