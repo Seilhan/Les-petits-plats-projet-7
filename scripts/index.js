@@ -7,6 +7,7 @@ import recipes from "./data/recipes.js";
  * @param data - L'objet de données qui est passé à la fonction.
  * @returns Un élément div avec une classe de cardlist.
  */
+// console.log(recipes);
 
 function buildCard(data) {
     const cardElement = document.createElement("div");
@@ -41,7 +42,7 @@ function buildCard(data) {
     });
 
     return cardElement;
-};
+}
 /* Création d'une carte pour chaque recette dans le tableau des recettes. */
 const cardlist = document.querySelector(".cardlist");
 const ingredientslist = document.querySelector(".list__ingredients");
@@ -64,6 +65,10 @@ function addCardstoDom(data) {
     }
 }
 
+/**
+ * Cette fonction prend une liste de recettes et crée une liste d'ingrédients à partir des recettes
+ * @param data - Les données que nous voulons afficher.
+ */
 function addIngredienttoDom(data) {
     ingredientslist.innerHTML = "";
     const tableIng = [];
@@ -74,13 +79,17 @@ function addIngredienttoDom(data) {
         });
     });
     const finalTable = [...new Set(tableIng)];
-    finalTable.forEach(ing => {
-            const ingredient = document.createElement("li");
-            ingredient.innerHTML = ing;
-            ingredientslist.appendChild(ingredient);
+    finalTable.forEach((ing) => {
+        const ingredient = document.createElement("li");
+        ingredient.innerHTML = ing;
+        ingredientslist.appendChild(ingredient);
     });
 }
 
+/**
+ * La fonction prend une liste d'appareils et renvoie une liste d'appareils uniques
+ * @param data - Les données que nous voulons afficher dans le tableau.
+ */
 const appareilslist = document.querySelector(".list__appareils");
 
 function addAppareiltoDom(data) {
@@ -89,17 +98,21 @@ function addAppareiltoDom(data) {
 
     data.forEach((el) => {
         tableApp.push(el.appliance.toLowerCase());
-        });
-        
-    const finalTableApp =  [...new Set(tableApp)];
-    finalTableApp.forEach( el => {
+    });
+
+    const finalTableApp = [...new Set(tableApp)];
+    finalTableApp.forEach((el) => {
         const appereils = document.createElement("li");
         appereils.innerHTML = el;
         appareilslist.appendChild(appereils);
         // console.log(el);
-    });   
-       
+    });
 }
+
+/**
+ * Il crée une liste de tous les ustensiles utilisés dans les recettes.
+ * @param data - Les données à afficher.
+ */
 const ustensileslist = document.querySelector(".list__ustensiles");
 
 function addUstensiletoDom(data) {
@@ -112,42 +125,34 @@ function addUstensiletoDom(data) {
         });
     });
     const finalTableUst = [...new Set(tableUst)];
-    finalTableUst.forEach(ust => {
-            const ustensiles = document.createElement("li");
-            ustensiles.innerHTML = ust;
-            ustensileslist.appendChild(ustensiles);
+    finalTableUst.forEach((ust) => {
+        const ustensiles = document.createElement("li");
+        ustensiles.innerHTML = ust;
+        ustensileslist.appendChild(ustensiles);
     });
 }
-// function addUstensiletoDom(data) {
-//     ustensileslist.innerHTML = "";
-//     data.forEach((el) => {
-//         el.ustensils.forEach((ust) => {
-//             const ustensiles = document.createElement("li");
-//             ustensiles.innerHTML = ust;
-//             ustensileslist.appendChild(ustensiles);
-//             // console.log(ust);
-//         });
-//     });
-// }
-
-
 
 /**
  * Étant donné un texte de recherche, filtrez le tableau des recettes et renvoyez le tableau filtré
  * @param searchtxt - Le texte à rechercher.
  */
 function filterCards(searchtxt) {
-    // TODO: filtrer par ingredients aussi
     const result = recipes.filter((a) => {
         const title = a.name.toLowerCase();
         return title.includes(searchtxt);
     });
-   
+    // TODO: filtrer par ingredients aussi
+    // const resultIng = recipes.filter((a) => {
+    //     const ingsearch = a.ingredients;
+    //     return ingsearch.includes(searchtxt);
+    // });
     addCardstoDom(result);
-    //TODO: 1: vider les ingredients du dom 2: addingredienttodom +result 
+    // addIngredienttoDom(resultIng);
+    //TODO: 1: vider les ingredients du dom 2: addingredienttodom +result
 }
 
 /* Le code qui permet de filtrer les recettes par le nom de la recette. */
+
 const searchBar = document.querySelector(".input-theme");
 
 searchBar.addEventListener("keyup", (e) => {
@@ -159,31 +164,35 @@ searchBar.addEventListener("keyup", (e) => {
     }
 });
 
-// Creation de toutes les recettes
+/* Ajout des cartes au DOM. */
+
 addCardstoDom(recipes);
 addIngredienttoDom(recipes);
 addAppareiltoDom(recipes);
 addUstensiletoDom(recipes);
 
+/* Le code ci-dessous ajoute un écouteur d'événement aux éléments dropdown-toggle. Lorsque la bascule déroulante
+est cliqué, l'événement show.bs.dropdown est déclenché. L'événement show.bs.dropdown est alors utilisé
+pour ajouter un écouteur d'événement à l'élément de menu déroulant. L'élément de menu déroulant reçoit alors une
+opacité de 1. */
 
 const dropdowns = document.querySelectorAll(".dropdown-toggle");
 
-dropdowns.forEach(el => {
+dropdowns.forEach((el) => {
     el.addEventListener("show.bs.dropdown", function(el) {
-            const inputEl = el.target.querySelector('.input-drop');
-            const dropdmenus = document.querySelector(el.target.id);
-        
-                inputEl.style.width = "542px";
-            setTimeout(() => {
-                dropdmenus.style.opacity = "1";
-            }, 10);
-        });
+        const inputEl = el.target.querySelector(".input-drop");
+        const dropdmenus = document.querySelector(el.target.id);
+
+        inputEl.style.width = "542px";
+        setTimeout(() => {
+            dropdmenus.style.opacity = "1";
+        }, 10);
+    });
 
     el.addEventListener("hide.bs.dropdown", function(el) {
-        const inputEl = el.target.querySelector('.input-drop');
+        const inputEl = el.target.querySelector(".input-drop");
         const dropdmenus = document.querySelector(el.target.id);
-            inputEl.style.width = "170px";
-            dropdmenus.style.opacity = "0";
-    });           
-})
-
+        inputEl.style.width = "170px";
+        dropdmenus.style.opacity = "0";
+    });
+});
