@@ -139,7 +139,9 @@ function addUstensiletoDom(data) {
 function filterCards(searchtxt) {
     const result = recipes.filter((a) => {
         const title = a.name.toLowerCase();
-        return title.includes(searchtxt);
+        const titreCorespondRecherche = title.includes(searchtxt);
+        const ingredientsCorespondRecherche = false; // TODO: faire un filtre pour compter les ing correspondant à la recherche
+        return titreCorespondRecherche || ingredientsCorespondRecherche;
     });
     // TODO: filtrer par ingredients aussi
     // const resultIng = recipes.filter((a) => {
