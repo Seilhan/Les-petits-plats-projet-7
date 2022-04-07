@@ -7,7 +7,7 @@ import recipes from "./data/recipes.js";
  * @param data - L'objet de données qui est passé à la fonction.
  * @returns Un élément div avec une classe de cardlist.
  */
-// console.log(recipes);
+console.log(recipes);
 
 function buildCard(data) {
     const cardElement = document.createElement("div");
@@ -139,18 +139,12 @@ function addUstensiletoDom(data) {
 function filterCards(searchtxt) {
     const result = recipes.filter((a) => {
         const title = a.name.toLowerCase();
-        const titreCorespondRecherche = title.includes(searchtxt);
-        const ingredientsCorespondRecherche = false; // TODO: faire un filtre pour compter les ing correspondant à la recherche
-        return titreCorespondRecherche || ingredientsCorespondRecherche;
+        const titleResult = title.includes(searchtxt);
+        const ingResult = false; // TODO: faire un filtre pour compter les ing correspondant à la recherche
+        return titleResult || ingResult;
     });
-    // TODO: filtrer par ingredients aussi
-    // const resultIng = recipes.filter((a) => {
-    //     const ingsearch = a.ingredients;
-    //     return ingsearch.includes(searchtxt);
-    // });
+
     addCardstoDom(result);
-    // addIngredienttoDom(resultIng);
-    //TODO: 1: vider les ingredients du dom 2: addingredienttodom +result
 }
 
 /* Le code qui permet de filtrer les recettes par le nom de la recette. */
