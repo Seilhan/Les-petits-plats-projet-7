@@ -7,7 +7,7 @@ import recipes from "./data/recipes.js";
  * @param data - L'objet de données qui est passé à la fonction.
  * @returns Un élément div avec une classe de cardlist.
  */
-console.log(recipes);
+// console.log(recipes);
 
 function buildCard(data) {
     const cardElement = document.createElement("div");
@@ -50,8 +50,9 @@ const noresult = document.createElement("div");
 noresult.innerText = "Aucune recette ne correspond à votre critère...";
 
 /**
- * Il prend les données de l'API et crée une carte pour chaque élément des données.
- * @param data - Les données à afficher dans la carte.
+ * Si le tableau de données est vide, ajoutez le message d'absence de résultat à la liste des cartes,
+ * sinon, pour chaque élément du tableau de données, ajoutez une carte à la liste des cartes.
+ * @param data - le tableau d'objets que vous souhaitez afficher
  */
 function addCardstoDom(data) {
     cardlist.innerHTML = "";
@@ -66,9 +67,13 @@ function addCardstoDom(data) {
 }
 
 /**
- * Cette fonction prend une liste de recettes et crée une liste d'ingrédients à partir des recettes
- * @param data - Les données que nous voulons afficher.
+ * Il prend un tableau d'objets, parcourt chaque objet, puis parcourt le tableau d'ingrédients de
+ * chaque objet, puis pousse chaque ingrédient vers un nouveau tableau, puis supprime les doublons du
+ * nouveau tableau, puis parcourt le nouveau tableau et crée un élément de liste pour chaque
+ * ingrédient.
+ * @param data - le tableau d'objets
  */
+
 function addIngredienttoDom(data) {
     ingredientslist.innerHTML = "";
     const tableIng = [];
@@ -87,8 +92,9 @@ function addIngredienttoDom(data) {
 }
 
 /**
- * La fonction prend une liste d'appareils et renvoie une liste d'appareils uniques
- * @param data - Les données que nous voulons afficher dans le tableau.
+ * Il prend un tableau d'objets, parcourt le tableau et crée un nouveau tableau de valeurs uniques à
+ * partir de la propriété "appliance" de chaque objet.
+ * @param data - [{
  */
 const appareilslist = document.querySelector(".list__appareils");
 
@@ -105,13 +111,14 @@ function addAppareiltoDom(data) {
         const appereils = document.createElement("li");
         appereils.innerHTML = el;
         appareilslist.appendChild(appereils);
-        // console.log(el);
     });
 }
 
 /**
- * Il crée une liste de tous les ustensiles utilisés dans les recettes.
- * @param data - Les données à afficher.
+ * Il prend un tableau d'objets, parcourt chaque objet, puis parcourt le tableau d'ustensiles de chaque
+ * objet, puis pousse chaque ustensile vers un nouveau tableau, puis supprime les doublons du nouveau
+ * tableau, puis parcourt le nouveau tableau et crée un nouvel élément de liste pour chaque ustensile.
+ * @param data - un tableau d'objets
  */
 const ustensileslist = document.querySelector(".list__ustensiles");
 
@@ -139,16 +146,56 @@ function addUstensiletoDom(data) {
 function filterCards(searchtxt) {
     const result = recipes.filter((a) => {
         const title = a.name.toLowerCase();
-        const titleResult = title.includes(searchtxt);
-        const ingResult = false; // TODO: faire un filtre pour compter les ing correspondant à la recherche
-        return titleResult || ingResult;
-    });
+        const appliance = a.appliance.toLowerCase();
 
+        /* Vérifier si le titre inclut le searchtxt. */
+        const titleResult = title.includes(searchtxt);
+
+        /* Vérifier si l'appliance inclut le searchtxt. */
+        const applianceResult = appliance.includes(searchtxt);
+
+        /* Filtrer le tableau des ingrédients de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
+        const ingResult = filterIngredients(a, searchtxt);
+
+        /* Filtrer le tableau des ustensiles de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
+        const ustResult = filterUstensiles(a, searchtxt);
+
+        /* Renvoie une valeur booléenne. */
+        return titleResult || applianceResult || ingResult || ustResult;
+    });
     addCardstoDom(result);
 }
 
-/* Le code qui permet de filtrer les recettes par le nom de la recette. */
+/**
+ * Il filtre le tableau des ingrédients de chaque objet du tableau et renvoie la longueur du tableau
+ * filtré.
+ * @param a - l'objet que vous recherchez
+ * @param searchtxt - le texte que vous recherchez
+ * @returns La longueur du tableau des ingrédients qui correspondent au searchtxt.
+ */
+function filterIngredients(a, searchtxt) {
+    return a.ingredients.filter((data) => {
+        const ing = data.ingredient.toLowerCase();
+        return ing.includes(searchtxt);
+    }).length;
+}
 
+/**
+ * Si le texte recherché est trouvé dans le tableau ustensils, renvoie la longueur du tableau.
+ * @param a - l'objet que vous recherchez
+ * @param searchtxt - le texte que vous recherchez
+ * @returns La longueur du tableau des ustensiles qui correspondent au searchtxt.
+ */
+function filterUstensiles(a, searchtxt) {
+    return a.ustensils.filter((ustensil) => {
+        const ust = ustensil.toLowerCase();
+        return ust.includes(searchtxt);
+    }).length;
+}
+
+/* Écoute d'un événement keyup sur la barre de recherche. Si la longueur de la barre de recherche est
+supérieure à 2, elle appellera la fonction filterCards. Si la longueur de la barre de recherche est
+inférieure à 2, elle appellera la fonction addCardstoDom. */
 const searchBar = document.querySelector(".input-theme");
 
 searchBar.addEventListener("keyup", (e) => {
@@ -160,18 +207,13 @@ searchBar.addEventListener("keyup", (e) => {
     }
 });
 
-/* Ajout des cartes au DOM. */
-
+/* Appel des fonctions pour ajouter les cartes au DOM. */
 addCardstoDom(recipes);
 addIngredienttoDom(recipes);
 addAppareiltoDom(recipes);
 addUstensiletoDom(recipes);
 
-/* Le code ci-dessous ajoute un écouteur d'événement aux éléments dropdown-toggle. Lorsque la bascule déroulante
-est cliqué, l'événement show.bs.dropdown est déclenché. L'événement show.bs.dropdown est alors utilisé
-pour ajouter un écouteur d'événement à l'élément de menu déroulant. L'élément de menu déroulant reçoit alors une
-opacité de 1. */
-
+/* Fonction utilisée pour modifier la largeur du menu déroulant lorsqu'il est cliqué. */
 const dropdowns = document.querySelectorAll(".dropdown-toggle");
 
 dropdowns.forEach((el) => {
