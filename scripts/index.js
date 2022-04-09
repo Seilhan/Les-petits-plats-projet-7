@@ -1,14 +1,13 @@
 /* Importation des données du fichier `recipes.js` dans la variable `recipes`. */
 import recipes from "./data/recipes.js";
 
-/**
- * Créez un élément de carte, ajoutez la classe `cardlist`, ajoutez la liste des ingrédients et renvoyez la carte
- * élément
- * @param data - L'objet de données qui est passé à la fonction.
- * @returns Un élément div avec une classe de cardlist.
- */
 // console.log(recipes);
 
+/**
+ * Il prend un objet recette et renvoie un élément div avec les informations de la recette.
+ * @param data - l'objet de données que vous souhaitez utiliser pour créer la carte
+ * @returns Un élément div avec la classe col-md-4 col-sm-6 pb-4.
+ */
 function buildCard(data) {
     const cardElement = document.createElement("div");
     cardElement.setAttribute("class", "col-md-4 col-sm-6 pb-4");
