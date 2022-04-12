@@ -61,6 +61,7 @@ input.input-drop::placeholder {
 input.blue:focus {
     background-color: #3282f7;
 }
+
 input.green:focus {
     background-color: #68d9a4;
 }
