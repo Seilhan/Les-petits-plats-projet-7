@@ -30,26 +30,39 @@
                 <div class="row">
                     <form class="d-flex">
                         <div class="position-relative flex-grow-1">
-                            <input class="form-control input-theme border-0" type="search " placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette... " aria-label="Search" />
+                            <input type="search" class="form-control input-theme border-0" placeholder="Rechercher un ingrédient, appareil, ustensile ou une recette... " aria-label="Search" />
                             <div class="position-absolute w-100 h-100 top-0 l-0 d-flex align-items-center justify-content-end px-3 pe-none">
                                 <i class="fa-solid fa-magnifying-glass"></i>
                             </div>
                         </div>
                     </form>
                 </div>
+                <div id="tags">
+                    <div class="container">
+                        <div class="row">
+                            <div class="tagsList">
+                                <ul class="newTags rounded">
+                                    <li class="tagsItem">
+                                        coco <i class="far fa-times-circle"></i>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Le code ci-dessous crée trois menus déroulant. -->
             <div class="container">
                 <div class="dropdown pt-4 d-inline-flex">
-                    <div class="position-relative dropdown-toggle me-3 blue" id=".dropdownMenu1" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                        <input class="form-control input-drop blue border-0" type="text " placeholder="Ingredients" aria-label="Search " />
+                    <div class="position-relative dropdown-toggle me-3 blue" id=".dropdownMenu1" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="definition" aria-expanded="false">
+                        <input class="form-control input-drop blue border-0" type="text" placeholder="Ingredients" aria-label="Search" />
                         <div class="position-absolute w-100 h-100 top-0 l-0 d-flex align-items-center justify-content-end px-3 pe-none">
                             <i class="tourne fa-solid fa-angle-down"></i>
                         </div>
                     </div>
 
-                    <div class="dropdown-menu blue dropdownMenu1" aria-labelledby="dropdownMenu1">
+                    <div class="dropdown-menu blue dropdownMenu1">
                         <div class="container p-4">
                             <ul class="list__ingredients">
                                 <li></li>
@@ -57,14 +70,14 @@
                         </div>
                     </div>
 
-                    <div class="position-relative dropdown-toggle me-3 green" id=".dropdownMenu2" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                        <input class="form-control input-drop green border-0" type="text " placeholder="Appareils " aria-label="Search " />
+                    <div class="position-relative dropdown-toggle me-3 green" id=".dropdownMenu2" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="definition" aria-expanded="false">
+                        <input class="form-control input-drop green border-0" type="text" placeholder="Appareils " aria-label="Search" />
                         <div class="position-absolute w-100 h-100 top-0 l-0 d-flex align-items-center justify-content-end px-3 pe-none">
                             <i class="fa-solid fa-angle-down"></i>
                         </div>
                     </div>
 
-                    <div class="dropdown-menu green dropdownMenu2" aria-labelledby="dropdownMenu2">
+                    <div class="dropdown-menu green dropdownMenu2">
                         <div class="container p-4">
                             <ul class="list__appareils">
                                 <li></li>
@@ -72,14 +85,14 @@
                         </div>
                     </div>
 
-                    <div class="position-relative dropdown-toggle red" id=".dropdownMenu3" data-bs-toggle="dropdown" data-bs-auto-close="outside" aria-expanded="false">
-                        <input class="form-control input-drop red border-0" type="text " placeholder="Ustensiles " aria-label="Search " />
+                    <div class="position-relative dropdown-toggle red" id=".dropdownMenu3" data-bs-toggle="dropdown" data-bs-auto-close="outside" role="definition" aria-expanded="false">
+                        <input class="form-control input-drop red border-0" type="text" placeholder="Ustensiles " aria-label="Search" />
                         <div class="position-absolute w-100 h-100 top-0 l-0 d-flex align-items-center justify-content-end px-3 pe-none">
                             <i class="fa-solid fa-angle-down"></i>
                         </div>
                     </div>
 
-                    <div class="dropdown-menu red dropdownMenu3" aria-labelledby="dropdownMenu3">
+                    <div class="dropdown-menu red dropdownMenu3">
                         <div class="container p-4">
                             <ul class="list__ustensiles">
                                 <li></li>
