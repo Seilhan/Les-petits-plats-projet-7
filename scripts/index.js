@@ -47,7 +47,11 @@ const cardlist = document.querySelector(".cardlist");
 const ingredientslist = document.querySelector(".list__ingredients");
 const noresult = document.createElement("div");
 noresult.innerText = "Aucune recette ne correspond à votre critère...";
-
+const tags = {
+    list__ingredients: [],
+    list__appareils: [],
+    list__ustensiles: [],
+};
 /**
  * Si le tableau de données est vide, ajoutez le message d'absence de résultat à la liste des cartes,
  * sinon, pour chaque élément du tableau de données, ajoutez une carte à la liste des cartes.
@@ -86,6 +90,11 @@ function addIngredienttoDom(data) {
     finalTable.forEach((ing) => {
         const ingredient = document.createElement("li");
         ingredient.innerHTML = ing;
+        // Click to Tag
+        ingredient.addEventListener("click", (e) => {
+            addTag(e);
+        });
+
         ingredientslist.appendChild(ingredient);
     });
 }
@@ -109,6 +118,9 @@ function addAppareiltoDom(data) {
     finalTableApp.forEach((el) => {
         const appereils = document.createElement("li");
         appereils.innerHTML = el;
+        appereils.addEventListener("click", (e) => {
+            addTag(e);
+        });
         appareilslist.appendChild(appereils);
     });
 }
@@ -134,6 +146,9 @@ function addUstensiletoDom(data) {
     finalTableUst.forEach((ust) => {
         const ustensiles = document.createElement("li");
         ustensiles.innerHTML = ust;
+        ustensiles.addEventListener("click", (e) => {
+            addTag(e);
+        });
         ustensileslist.appendChild(ustensiles);
     });
 }
@@ -219,8 +234,8 @@ dropdowns.forEach((el) => {
     el.addEventListener("show.bs.dropdown", function(el) {
         const inputEl = el.target.querySelector(".input-drop");
         const dropdmenus = document.querySelector(el.target.id);
-
         inputEl.style.width = "542px";
+
         setTimeout(() => {
             dropdmenus.style.opacity = "1";
         }, 10);
@@ -233,3 +248,40 @@ dropdowns.forEach((el) => {
         dropdmenus.style.opacity = "0";
     });
 });
+
+const list2class = {
+    list__ingredients: "tagIng",
+    list__appareils: "tagApp",
+    list__ustensiles: "tagUst",
+};
+/**
+ * La fonction s'appelle addTag et prend un événement en paramètre. La fonction crée ensuite une
+ * variable appelée tagsContent et l'affecte à l'élément avec l'id de tagsItem. La fonction crée
+ * ensuite une variable appelée tagText et l'affecte au textContent du currentTarget de l'événement. La
+ * fonction crée ensuite une variable appelée liElement et l'affecte à un nouvel élément d'élément de
+ * liste. La fonction attribue ensuite le textContent du liElement au tagText. La fonction ajoute
+ * ensuite le liElement au tagsContent. La fonction pousse ensuite le tagText dans le tableau de
+ * balises. La fonction s'appelle alors elle-même.
+ * @param e - l'objet événement
+ */
+function addTag(e) {
+    const tagsContent = document.querySelector(".newTags");
+    const tagText = e.target.textContent;
+    const tagType = e.target.parentNode.classList[0];
+    console.log(tagType);
+
+    if (tags[tagType].indexOf(tagText) === -1) {
+        const liElement = document.createElement("li");
+        liElement.setAttribute("class", list2class[tagType]);
+
+        liElement.innerHTML = `${tagText} <i class="far fa-times-circle"></i>`;
+        liElement.querySelector(".far").addEventListener("click", (e) => {
+            liElement.remove();
+            const index = tags[tagType].indexOf(tagText);
+            tags[tagType].splice(index, 1);
+        });
+        tagsContent.appendChild(liElement);
+        tags[tagType].push(tagText.toLowerCase());
+        console.log(tags);
+    }
+}
