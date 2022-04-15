@@ -254,21 +254,15 @@ const list2class = {
     list__appareils: "tagApp",
     list__ustensiles: "tagUst",
 };
+
 /**
- * La fonction s'appelle addTag et prend un événement en paramètre. La fonction crée ensuite une
- * variable appelée tagsContent et l'affecte à l'élément avec l'id de tagsItem. La fonction crée
- * ensuite une variable appelée tagText et l'affecte au textContent du currentTarget de l'événement. La
- * fonction crée ensuite une variable appelée liElement et l'affecte à un nouvel élément d'élément de
- * liste. La fonction attribue ensuite le textContent du liElement au tagText. La fonction ajoute
- * ensuite le liElement au tagsContent. La fonction pousse ensuite le tagText dans le tableau de
- * balises. La fonction s'appelle alors elle-même.
+ * Il prend le contenu textuel de l'élément cliqué et l'ajoute à l'objet tags, puis l'ajoute au DOM.
  * @param e - l'objet événement
  */
 function addTag(e) {
     const tagsContent = document.querySelector(".newTags");
     const tagText = e.target.textContent;
     const tagType = e.target.parentNode.classList[0];
-    console.log(tagType);
 
     if (tags[tagType].indexOf(tagText) === -1) {
         const liElement = document.createElement("li");
