@@ -221,6 +221,39 @@ searchBar.addEventListener("keyup", (e) => {
     }
 });
 
+const searchIng = document.querySelector(".blue");
+
+searchIng.addEventListener("keyup", (e) => {
+    if (e.target.value.length > 2) {
+        const searchtxt = e.target.value.toLowerCase();
+        filterCards(searchtxt);
+    } else {
+        addCardstoDom(recipes);
+    }
+});
+
+const searchApp = document.querySelector(".green");
+
+searchApp.addEventListener("keyup", (e) => {
+    if (e.target.value.length > 2) {
+        const searchtxt = e.target.value.toLowerCase();
+        filterCards(searchtxt);
+    } else {
+        addCardstoDom(recipes);
+    }
+});
+
+const searchUst = document.querySelector(".red");
+
+searchUst.addEventListener("keyup", (e) => {
+    if (e.target.value.length > 2) {
+        const searchtxt = e.target.value.toLowerCase();
+        filterCards(searchtxt);
+    } else {
+        addCardstoDom(recipes);
+    }
+});
+
 /* Appel des fonctions pour ajouter les cartes au DOM. */
 addCardstoDom(recipes);
 addIngredienttoDom(recipes);
