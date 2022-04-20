@@ -90,7 +90,7 @@ function addIngredienttoDom(data) {
     finalTable.forEach((ing) => {
         const ingredient = document.createElement("li");
         ingredient.innerHTML = ing;
-        // Click to Tag
+
         ingredient.addEventListener("click", (e) => {
             addTag(e);
         });
@@ -259,6 +259,7 @@ const list2class = {
  * Il prend le contenu textuel de l'élément cliqué et l'ajoute à l'objet tags, puis l'ajoute au DOM.
  * @param e - l'objet événement
  */
+
 function addTag(e) {
     const tagsContent = document.querySelector(".newTags");
     const tagText = e.target.textContent;
@@ -276,6 +277,5 @@ function addTag(e) {
         });
         tagsContent.appendChild(liElement);
         tags[tagType].push(tagText.toLowerCase());
-        console.log(tags);
     }
 }
