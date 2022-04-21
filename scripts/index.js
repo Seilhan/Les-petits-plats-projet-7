@@ -47,10 +47,11 @@ const cardlist = document.querySelector(".cardlist");
 const ingredientslist = document.querySelector(".list__ingredients");
 const noresult = document.createElement("div");
 noresult.innerText = "Aucune recette ne correspond à votre critère...";
+
 const tags = {
-    list__ingredients: [],
-    list__appareils: [],
-    list__ustensiles: [],
+    tagIng: [],
+    tagApp: [],
+    tagUst: [],
 };
 /**
  * Si le tableau de données est vide, ajoutez le message d'absence de résultat à la liste des cartes,
@@ -77,24 +78,28 @@ function addCardstoDom(data) {
  * @param data - le tableau d'objets
  */
 
-function addIngredienttoDom(data) {
+function addIngredienttoDom(data, search = null) {
     ingredientslist.innerHTML = "";
     const tableIng = [];
 
     data.forEach((el) => {
         el.ingredients.forEach((ing) => {
-            tableIng.push(ing.ingredient.toLowerCase().trim());
+            const indtoAdd = ing.ingredient.toLowerCase().trim();
+            if (search) {
+                if (indtoAdd.includes(search)) tableIng.push(indtoAdd);
+            } else {
+                tableIng.push(indtoAdd);
+            }
         });
     });
+
     const finalTable = [...new Set(tableIng)];
     finalTable.forEach((ing) => {
         const ingredient = document.createElement("li");
         ingredient.innerHTML = ing;
-
         ingredient.addEventListener("click", (e) => {
             addTag(e);
         });
-
         ingredientslist.appendChild(ingredient);
     });
 }
@@ -106,12 +111,17 @@ function addIngredienttoDom(data) {
  */
 const appareilslist = document.querySelector(".list__appareils");
 
-function addAppareiltoDom(data) {
+function addAppareiltoDom(data, search = null) {
     appareilslist.innerHTML = "";
     const tableApp = [];
 
     data.forEach((el) => {
-        tableApp.push(el.appliance.toLowerCase());
+        const apptoAdd = el.appliance.toLowerCase();
+        if (search) {
+            if (apptoAdd.includes(search)) tableApp.push(apptoAdd);
+        } else {
+            tableApp.push(apptoAdd);
+        }
     });
 
     const finalTableApp = [...new Set(tableApp)];
@@ -133,13 +143,18 @@ function addAppareiltoDom(data) {
  */
 const ustensileslist = document.querySelector(".list__ustensiles");
 
-function addUstensiletoDom(data) {
+function addUstensiletoDom(data, search = null) {
     ustensileslist.innerHTML = "";
     const tableUst = [];
 
     data.forEach((el) => {
         el.ustensils.forEach((ust) => {
-            tableUst.push(ust.toLowerCase());
+            const usttoAdd = ust.toLowerCase().trim();
+            if (search) {
+                if (usttoAdd.includes(search)) tableUst.push(usttoAdd);
+            } else {
+                tableUst.push(usttoAdd);
+            }
         });
     });
     const finalTableUst = [...new Set(tableUst)];
@@ -158,26 +173,37 @@ function addUstensiletoDom(data) {
  * @param searchtxt - Le texte à rechercher.
  */
 function filterCards(searchtxt) {
-    const result = recipes.filter((a) => {
-        const title = a.name.toLowerCase();
-        const appliance = a.appliance.toLowerCase();
+    const resultfilter = searchtxt ?
+        recipes.filter((a) => {
+            const title = a.name.toLowerCase();
+            const appliance = a.appliance.toLowerCase();
 
-        /* Vérifier si le titre inclut le searchtxt. */
-        const titleResult = title.includes(searchtxt);
+            /* Vérifier si le titre inclut le searchtxt. */
+            const titleResult = title.includes(searchtxt);
 
-        /* Vérifier si l'appliance inclut le searchtxt. */
-        const applianceResult = appliance.includes(searchtxt);
+            /* Vérifier si l'appliance inclut le searchtxt. */
+            const applianceResult = appliance.includes(searchtxt);
 
-        /* Filtrer le tableau des ingrédients de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
-        const ingResult = filterIngredients(a, searchtxt);
+            /* Filtrer le tableau des ingrédients de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
+            const ingResult = filterIngredients(a, searchtxt);
 
-        /* Filtrer le tableau des ustensiles de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
-        const ustResult = filterUstensiles(a, searchtxt);
+            /* Filtrer le tableau des ustensiles de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
+            const ustResult = filterUstensiles(a, searchtxt);
 
-        /* Renvoie une valeur booléenne. */
-        return titleResult || applianceResult || ingResult || ustResult;
-    });
-    addCardstoDom(result);
+            /* Renvoie une valeur booléenne. */
+            return titleResult || applianceResult || ingResult || ustResult;
+        }) :
+        recipes;
+
+    // Fonction de Filtrage par tags
+
+    console.log("test tags", tags);
+    console.log("ta liste à filter", resultfilter);
+
+    // FinalFilter = tableau filtré par searchtxt et/ou pat tags
+    const finalFilter = resultfilter;
+
+    addCardstoDom(finalFilter);
 }
 
 /**
@@ -226,9 +252,11 @@ const searchIng = document.querySelector(".blue");
 searchIng.addEventListener("keyup", (e) => {
     if (e.target.value.length > 2) {
         const searchtxt = e.target.value.toLowerCase();
+        addIngredienttoDom(recipes, searchtxt);
         filterCards(searchtxt);
     } else {
         addCardstoDom(recipes);
+        addIngredienttoDom(recipes);
     }
 });
 
@@ -237,9 +265,11 @@ const searchApp = document.querySelector(".green");
 searchApp.addEventListener("keyup", (e) => {
     if (e.target.value.length > 2) {
         const searchtxt = e.target.value.toLowerCase();
+        addAppareiltoDom(recipes, searchtxt);
         filterCards(searchtxt);
     } else {
         addCardstoDom(recipes);
+        addAppareiltoDom(recipes);
     }
 });
 
@@ -248,9 +278,11 @@ const searchUst = document.querySelector(".red");
 searchUst.addEventListener("keyup", (e) => {
     if (e.target.value.length > 2) {
         const searchtxt = e.target.value.toLowerCase();
+        addUstensiletoDom(recipes, searchtxt);
         filterCards(searchtxt);
     } else {
         addCardstoDom(recipes);
+        addUstensiletoDom(recipes);
     }
 });
 
@@ -298,17 +330,18 @@ function addTag(e) {
     const tagText = e.target.textContent;
     const tagType = e.target.parentNode.classList[0];
 
-    if (tags[tagType].indexOf(tagText) === -1) {
+    if (tags[list2class[tagType]].indexOf(tagText) === -1) {
         const liElement = document.createElement("li");
         liElement.setAttribute("class", list2class[tagType]);
 
         liElement.innerHTML = `${tagText} <i class="far fa-times-circle"></i>`;
         liElement.querySelector(".far").addEventListener("click", (e) => {
             liElement.remove();
-            const index = tags[tagType].indexOf(tagText);
-            tags[tagType].splice(index, 1);
+            const index = tags[list2class[tagType]].indexOf(tagText);
+            tags[list2class[tagType]].splice(index, 1);
         });
         tagsContent.appendChild(liElement);
-        tags[tagType].push(tagText.toLowerCase());
+        tags[list2class[tagType]].push(tagText.toLowerCase());
+        filterCards();
     }
 }
