@@ -75,9 +75,9 @@ function addCardstoDom(data) {
  * chaque objet, puis pousse chaque ingrédient vers un nouveau tableau, puis supprime les doublons du
  * nouveau tableau, puis parcourt le nouveau tableau et crée un élément de liste pour chaque
  * ingrédient.
- * @param data - le tableau d'objets
+ * @param data - le tableau d'objets que je parcours en boucle
+ * @param [search=null] - le terme de recherche
  */
-
 function addIngredienttoDom(data, search = null) {
     ingredientslist.innerHTML = "";
     const tableIng = [];
@@ -105,9 +105,10 @@ function addIngredienttoDom(data, search = null) {
 }
 
 /**
- * Il prend un tableau d'objets, parcourt le tableau et crée un nouveau tableau de valeurs uniques à
- * partir de la propriété "appliance" de chaque objet.
- * @param data - [{
+ * Il prend un tableau d'objets et crée une liste de valeurs uniques à partir de la propriété
+ * "appliance" de chaque objet.
+ * @param data - les données de l'API
+ * @param [search=null] - la valeur du champ de saisie
  */
 const appareilslist = document.querySelector(".list__appareils");
 
@@ -136,11 +137,13 @@ function addAppareiltoDom(data, search = null) {
 }
 
 /**
- * Il prend un tableau d'objets, parcourt chaque objet, puis parcourt le tableau d'ustensiles de chaque
- * objet, puis pousse chaque ustensile vers un nouveau tableau, puis supprime les doublons du nouveau
- * tableau, puis parcourt le nouveau tableau et crée un nouvel élément de liste pour chaque ustensile.
- * @param data - un tableau d'objets
+ * Il prend un tableau d'objets, boucle à travers les objets, boucle à travers le tableau d'ustensiles
+ * dans chaque objet et ajoute chaque ustensile à un nouveau tableau. Ensuite, il supprime les doublons
+ * du nouveau tableau et ajoute chaque ustensile au DOM.
+ * @param data - le tableau d'objets
+ * @param [search=null] - la valeur de l'entrée
  */
+
 const ustensileslist = document.querySelector(".list__ustensiles");
 
 function addUstensiletoDom(data, search = null) {
@@ -168,12 +171,45 @@ function addUstensiletoDom(data, search = null) {
     });
 }
 
+function filterCardsByTags(recipes) {
+    const ingredients = tags.tagIng;
+    const appliance = tags.tagApp;
+    const ustensil = tags.tagUst;
+
+    const findInIng =
+        ingredients.length > 0 ?
+        recipes.filter((r) => {
+            return r.ingredients.find((i) => {
+                return ingredients.includes(i.ingredient.toLowerCase());
+            });
+        }) :
+        recipes;
+
+    const findApp =
+        appliance.length > 0 ?
+        findInIng.filter((r) => {
+            return appliance.includes(r.appliance.toLowerCase());
+        }) :
+        findInIng;
+
+    const findUst =
+        ustensil.length > 0 ?
+        findApp.filter((r) => {
+            return r.ustensils.find((i) => {
+                return ustensil.includes(i.toLowerCase());
+            });
+        }) :
+        findApp;
+
+    return findUst;
+}
+
 /**
  * Étant donné un texte de recherche, filtrez le tableau des recettes et renvoyez le tableau filtré
  * @param searchtxt - Le texte à rechercher.
  */
 function filterCards(searchtxt) {
-    const resultfilter = searchtxt ?
+    const searchfilter = searchtxt ?
         recipes.filter((a) => {
             const title = a.name.toLowerCase();
             const appliance = a.appliance.toLowerCase();
@@ -196,12 +232,9 @@ function filterCards(searchtxt) {
         recipes;
 
     // Fonction de Filtrage par tags
-
-    console.log("test tags", tags);
-    console.log("ta liste à filter", resultfilter);
-
-    // FinalFilter = tableau filtré par searchtxt et/ou pat tags
-    const finalFilter = resultfilter;
+    const finalFilter = filterCardsByTags(searchfilter);
+    // recipes = console.log("test tags", tags);
+    // console.log("ta liste à filter", resultfilter);
 
     addCardstoDom(finalFilter);
 }
@@ -247,6 +280,12 @@ searchBar.addEventListener("keyup", (e) => {
     }
 });
 
+/* Écoute d'un événement keyup sur la barre de recherche. Si la longueur de la barre de recherche est
+supérieure à 2, elle appellera la fonction addIngredienttoDom et transmettra le tableau des recettes
+et la variable searchtxt. Il appellera également la fonction filterCards et passera la variable
+searchtxt. Si la longueur de la barre de recherche est inférieure à 2, elle appellera la fonction
+addCardstoDom et transmettra le tableau des recettes. Il appellera également la fonction
+addIngredienttoDom et passera le tableau des recettes. */
 const searchIng = document.querySelector(".blue");
 
 searchIng.addEventListener("keyup", (e) => {
@@ -260,6 +299,12 @@ searchIng.addEventListener("keyup", (e) => {
     }
 });
 
+/* Écoute d'un événement keyup sur l'élément searchApp. Si la longueur de la valeur de l'entrée est
+supérieure à 2, elle appellera la fonction addAppareiltoDom et passera le tableau des recettes et la
+variable searchtxt. Il appellera également la fonction filterCards et passera la variable searchtxt.
+Si la longueur de la valeur de l'entrée est inférieure ou égale à 2, elle appellera la fonction
+addCardstoDom et passera dans le tableau des recettes. Il appellera également la fonction
+addAppareiltoDom et passera dans le tableau des recettes */
 const searchApp = document.querySelector(".green");
 
 searchApp.addEventListener("keyup", (e) => {
@@ -273,6 +318,9 @@ searchApp.addEventListener("keyup", (e) => {
     }
 });
 
+/* Écoute d'un événement keyup sur la barre de recherche. Si la longueur de la barre de recherche est
+supérieure à 2, elle filtrera les cartes et les ustensiles. Si la longueur est inférieure à 2, il
+affichera toutes les cartes et tous les ustensiles. */
 const searchUst = document.querySelector(".red");
 
 searchUst.addEventListener("keyup", (e) => {
@@ -339,6 +387,7 @@ function addTag(e) {
             liElement.remove();
             const index = tags[list2class[tagType]].indexOf(tagText);
             tags[list2class[tagType]].splice(index, 1);
+            filterCards();
         });
         tagsContent.appendChild(liElement);
         tags[list2class[tagType]].push(tagText.toLowerCase());
