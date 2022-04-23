@@ -178,27 +178,33 @@ function filterCardsByTags(recipes) {
 
     const findInIng =
         ingredients.length > 0 ?
-        recipes.filter((r) => {
-            return r.ingredients.find((i) => {
-                return ingredients.includes(i.ingredient.toLowerCase());
-            });
-        }) :
+        recipes.reduce((val1, val2) => {
+            return val2.ingredients.filter((i) =>
+                    ingredients.includes(i.ingredient.toLowerCase())
+                ).length === ingredients.length ?
+                [...val1, val2] :
+                val1;
+        }, []) :
         recipes;
 
     const findApp =
         appliance.length > 0 ?
-        findInIng.filter((r) => {
-            return appliance.includes(r.appliance.toLowerCase());
-        }) :
+        findInIng.reduce((val1, val2) => {
+            return appliance.includes(val2.appliance.toLowerCase()) ?
+                [...val1, val2] :
+                val1;
+        }, []) :
         findInIng;
 
     const findUst =
         ustensil.length > 0 ?
-        findApp.filter((r) => {
-            return r.ustensils.find((i) => {
-                return ustensil.includes(i.toLowerCase());
-            });
-        }) :
+        findApp.reduce((val1, val2) => {
+            return val2.ustensils.filter((i) =>
+                    ustensil.includes(i.toLowerCase())
+                ).length === ustensil.length ?
+                [...val1, val2] :
+                val1;
+        }, []) :
         findApp;
 
     return findUst;
