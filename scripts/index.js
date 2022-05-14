@@ -241,18 +241,17 @@ function getFilteredData(searchtxt) {
         }) :
         recipes;
 }
+
 /**
- * Étant donné un texte de recherche, filtrez le tableau des recettes et renvoyez le tableau filtré
- * @param searchtxt - Le texte à rechercher.
+ * Il prend un texte de recherche, filtre les données par ce texte, puis filtre les données par
+ * balises, puis ajoute les données filtrées au DOM.
+ * @param searchtxt - le texte que l'utilisateur a saisi dans le champ de recherche
  */
 
 function filterCards(searchtxt) {
     const searchfilter = getFilteredData(searchtxt);
 
-    // Fonction de Filtrage par tags
     const finalFilter = filterCardsByTags(searchfilter);
-    // recipes = console.log("test tags", tags);
-    // console.log("ta liste à filter", resultfilter);
 
     addCardstoDom(finalFilter);
 }
