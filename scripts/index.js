@@ -296,9 +296,12 @@ searchBar.addEventListener("keyup", (e) => {
     if (e.target.value.length > 2) {
         const searchtxt = e.target.value.toLowerCase();
         filterCards(searchtxt);
+        const startTime = performance.now()
         addIngredienttoDom(getFilteredData(searchtxt));
         addAppareiltoDom(getFilteredData(searchtxt));
         addUstensiletoDom(getFilteredData(searchtxt));
+        const endTime = performance.now()
+        console.log(`Call to doSomething took ${endTime - startTime} milliseconds`)
     } else {
         addCardstoDom(recipes);
     }
