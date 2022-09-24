@@ -9,10 +9,10 @@ import recipes from "./data/recipes.js";
  * @returns Un élément div avec la classe col-md-4 col-sm-6 pb-4.
  */
 function buildCard(data) {
-    const cardElement = document.createElement("div");
-    cardElement.setAttribute("class", "col-lg-4 col-md-6 col-sm-12");
+  const cardElement = document.createElement("div");
+  cardElement.setAttribute("class", "col-lg-4 col-md-6 col-sm-12");
 
-    cardElement.innerHTML = ` <div class="card" tabindex="0">
+  cardElement.innerHTML = ` <div class="card" tabindex="0">
     <img class="card-img-top" alt="" />
     <div class="card-body">
         <div class="d-flex flex-row mb-3 justify-content-between gap-2">
@@ -33,16 +33,16 @@ function buildCard(data) {
         </div>
     </div>
 </div>`;
-    const ingredients = cardElement.querySelector(".ingredients");
-    data.ingredients.forEach((element) => {
-        const ingredient = document.createElement("li");
-        ingredient.innerHTML = `${element.ingredient} : ${element.quantity || ""} ${
+  const ingredients = cardElement.querySelector(".ingredients");
+  data.ingredients.forEach((element) => {
+    const ingredient = document.createElement("li");
+    ingredient.innerHTML = `${element.ingredient} : ${element.quantity || ""} ${
       element.unit || ""
     }`;
-        ingredients.appendChild(ingredient);
-    });
+    ingredients.appendChild(ingredient);
+  });
 
-    return cardElement;
+  return cardElement;
 }
 /* Création d'une carte pour chaque recette dans le tableau des recettes. */
 const cardlist = document.querySelector(".cardlist");
@@ -51,9 +51,9 @@ const noresult = document.createElement("div");
 noresult.innerText = "Aucune recette ne correspond à votre critère...";
 
 const tags = {
-    tagIng: [],
-    tagApp: [],
-    tagUst: [],
+  tagIng: [],
+  tagApp: [],
+  tagUst: [],
 };
 /**
  * Si le tableau de données est vide, ajoutez le message d'absence de résultat à la liste des cartes,
@@ -61,15 +61,15 @@ const tags = {
  * @param data - le tableau d'objets que vous souhaitez afficher
  */
 function addCardstoDom(data) {
-    cardlist.innerHTML = "";
-    if (data.length == 0) {
-        cardlist.appendChild(noresult);
-    } else {
-        data.forEach((el) => {
-            const card = buildCard(el);
-            cardlist.appendChild(card);
-        });
-    }
+  cardlist.innerHTML = "";
+  if (data.length == 0) {
+    cardlist.appendChild(noresult);
+  } else {
+    data.forEach((el) => {
+      const card = buildCard(el);
+      cardlist.appendChild(card);
+    });
+  }
 }
 
 /**
@@ -81,29 +81,29 @@ function addCardstoDom(data) {
  * @param [search=null] - le terme de recherche
  */
 function addIngredienttoDom(data, search = null) {
-    ingredientslist.innerHTML = "";
-    const tableIng = [];
+  ingredientslist.innerHTML = "";
+  const tableIng = [];
 
-    data.forEach((el) => {
-        el.ingredients.forEach((ing) => {
-            const indtoAdd = ing.ingredient.toLowerCase().trim();
-            if (search) {
-                if (indtoAdd.includes(search)) tableIng.push(indtoAdd);
-            } else {
-                tableIng.push(indtoAdd);
-            }
-        });
+  data.forEach((el) => {
+    el.ingredients.forEach((ing) => {
+      const indtoAdd = ing.ingredient.toLowerCase().trim();
+      if (search) {
+        if (indtoAdd.includes(search)) tableIng.push(indtoAdd);
+      } else {
+        tableIng.push(indtoAdd);
+      }
     });
+  });
 
-    const finalTable = [...new Set(tableIng)];
-    finalTable.forEach((ing) => {
-        const ingredient = document.createElement("li");
-        ingredient.innerHTML = ing;
-        ingredient.addEventListener("click", (e) => {
-            addTag(e);
-        });
-        ingredientslist.appendChild(ingredient);
+  const finalTable = [...new Set(tableIng)];
+  finalTable.forEach((ing) => {
+    const ingredient = document.createElement("li");
+    ingredient.innerHTML = ing;
+    ingredient.addEventListener("click", (e) => {
+      addTag(e);
     });
+    ingredientslist.appendChild(ingredient);
+  });
 }
 
 /**
@@ -115,27 +115,27 @@ function addIngredienttoDom(data, search = null) {
 const appareilslist = document.querySelector(".list__appareils");
 
 function addAppareiltoDom(data, search = null) {
-    appareilslist.innerHTML = "";
-    const tableApp = [];
+  appareilslist.innerHTML = "";
+  const tableApp = [];
 
-    data.forEach((el) => {
-        const apptoAdd = el.appliance.toLowerCase();
-        if (search) {
-            if (apptoAdd.includes(search)) tableApp.push(apptoAdd);
-        } else {
-            tableApp.push(apptoAdd);
-        }
-    });
+  data.forEach((el) => {
+    const apptoAdd = el.appliance.toLowerCase();
+    if (search) {
+      if (apptoAdd.includes(search)) tableApp.push(apptoAdd);
+    } else {
+      tableApp.push(apptoAdd);
+    }
+  });
 
-    const finalTableApp = [...new Set(tableApp)];
-    finalTableApp.forEach((el) => {
-        const appereils = document.createElement("li");
-        appereils.innerHTML = el;
-        appereils.addEventListener("click", (e) => {
-            addTag(e);
-        });
-        appareilslist.appendChild(appereils);
+  const finalTableApp = [...new Set(tableApp)];
+  finalTableApp.forEach((el) => {
+    const appereils = document.createElement("li");
+    appereils.innerHTML = el;
+    appereils.addEventListener("click", (e) => {
+      addTag(e);
     });
+    appareilslist.appendChild(appereils);
+  });
 }
 
 /**
@@ -149,28 +149,28 @@ function addAppareiltoDom(data, search = null) {
 const ustensileslist = document.querySelector(".list__ustensiles");
 
 function addUstensiletoDom(data, search = null) {
-    ustensileslist.innerHTML = "";
-    const tableUst = [];
+  ustensileslist.innerHTML = "";
+  const tableUst = [];
 
-    data.forEach((el) => {
-        el.ustensils.forEach((ust) => {
-            const usttoAdd = ust.toLowerCase().trim();
-            if (search) {
-                if (usttoAdd.includes(search)) tableUst.push(usttoAdd);
-            } else {
-                tableUst.push(usttoAdd);
-            }
-        });
+  data.forEach((el) => {
+    el.ustensils.forEach((ust) => {
+      const usttoAdd = ust.toLowerCase().trim();
+      if (search) {
+        if (usttoAdd.includes(search)) tableUst.push(usttoAdd);
+      } else {
+        tableUst.push(usttoAdd);
+      }
     });
-    const finalTableUst = [...new Set(tableUst)];
-    finalTableUst.forEach((ust) => {
-        const ustensiles = document.createElement("li");
-        ustensiles.innerHTML = ust;
-        ustensiles.addEventListener("click", (e) => {
-            addTag(e);
-        });
-        ustensileslist.appendChild(ustensiles);
+  });
+  const finalTableUst = [...new Set(tableUst)];
+  finalTableUst.forEach((ust) => {
+    const ustensiles = document.createElement("li");
+    ustensiles.innerHTML = ust;
+    ustensiles.addEventListener("click", (e) => {
+      addTag(e);
     });
+    ustensileslist.appendChild(ustensiles);
+  });
 }
 /**
  * Il filtre le tableau des recettes par le tableau des balises et renvoie un nouveau tableau de
@@ -180,66 +180,66 @@ function addUstensiletoDom(data, search = null) {
  */
 
 function filterCardsByTags(recipes) {
-    const ingredients = tags.tagIng;
-    const appliance = tags.tagApp;
-    const ustensil = tags.tagUst;
+  const ingredients = tags.tagIng;
+  const appliance = tags.tagApp;
+  const ustensil = tags.tagUst;
 
-    const findInIng =
-        ingredients.length > 0 ?
-        recipes.reduce((val1, val2) => {
-            return val2.ingredients.filter((i) =>
-                    ingredients.includes(i.ingredient.toLowerCase())
-                ).length === ingredients.length ?
-                [...val1, val2] :
-                val1;
-        }, []) :
-        recipes;
+  const findInIng =
+    ingredients.length > 0
+      ? recipes.reduce((val1, val2) => {
+          return val2.ingredients.filter((i) =>
+            ingredients.includes(i.ingredient.toLowerCase())
+          ).length === ingredients.length
+            ? [...val1, val2]
+            : val1;
+        }, [])
+      : recipes;
 
-    const findApp =
-        appliance.length > 0 ?
-        findInIng.reduce((val1, val2) => {
-            return appliance.includes(val2.appliance.toLowerCase()) ?
-                [...val1, val2] :
-                val1;
-        }, []) :
-        findInIng;
+  const findApp =
+    appliance.length > 0
+      ? findInIng.reduce((val1, val2) => {
+          return appliance.includes(val2.appliance.toLowerCase())
+            ? [...val1, val2]
+            : val1;
+        }, [])
+      : findInIng;
 
-    const findUst =
-        ustensil.length > 0 ?
-        findApp.reduce((val1, val2) => {
-            return val2.ustensils.filter((i) =>
-                    ustensil.includes(i.toLowerCase())
-                ).length === ustensil.length ?
-                [...val1, val2] :
-                val1;
-        }, []) :
-        findApp;
+  const findUst =
+    ustensil.length > 0
+      ? findApp.reduce((val1, val2) => {
+          return val2.ustensils.filter((i) =>
+            ustensil.includes(i.toLowerCase())
+          ).length === ustensil.length
+            ? [...val1, val2]
+            : val1;
+        }, [])
+      : findApp;
 
-    return findUst;
+  return findUst;
 }
 
 function getFilteredData(searchtxt) {
-    return searchtxt ?
-        recipes.filter((a) => {
-            const title = a.name.toLowerCase();
-            const appliance = a.appliance.toLowerCase();
+  return searchtxt
+    ? recipes.filter((a) => {
+        const title = a.name.toLowerCase();
+        const appliance = a.appliance.toLowerCase();
 
-            /* Vérifier si le titre inclut le searchtxt. */
-            const titleResult = title.includes(searchtxt);
+        /* Vérifier si le titre inclut le searchtxt. */
+        const titleResult = title.includes(searchtxt);
 
-            /* Vérifier si l'appliance inclut le searchtxt. */
-            const applianceResult = appliance.includes(searchtxt);
+        /* Vérifier si l'appliance inclut le searchtxt. */
+        const applianceResult = appliance.includes(searchtxt);
 
-            /* Filtrer le tableau des ingrédients de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
-            const ingResult = filterIngredients(a, searchtxt);
+        /* Filtrer le tableau des ingrédients de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
+        const ingResult = filterIngredients(a, searchtxt);
 
-            /* Filtrer le tableau des ustensiles de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
-            const ustResult = filterUstensiles(a, searchtxt);
+        /* Filtrer le tableau des ustensiles de chaque objet du tableau et renvoyer la longueur du tableau filtré. */
+        const ustResult = filterUstensiles(a, searchtxt);
 
-            /* Renvoie une valeur booléenne. */
-            return titleResult || applianceResult || ingResult || ustResult;
-        }) :
-        recipes;
+        /* Renvoie une valeur booléenne. */
+        return titleResult || applianceResult || ingResult || ustResult;
+      })
+    : recipes;
 }
 
 /**
@@ -249,11 +249,11 @@ function getFilteredData(searchtxt) {
  */
 
 function filterCards(searchtxt) {
-    const searchfilter = getFilteredData(searchtxt);
+  const searchfilter = getFilteredData(searchtxt);
 
-    const finalFilter = filterCardsByTags(searchfilter);
+  const finalFilter = filterCardsByTags(searchfilter);
 
-    addCardstoDom(finalFilter);
+  addCardstoDom(finalFilter);
 }
 
 /**
@@ -264,10 +264,10 @@ function filterCards(searchtxt) {
  * @returns La longueur du tableau des ingrédients qui correspondent au searchtxt.
  */
 function filterIngredients(a, searchtxt) {
-    return a.ingredients.filter((data) => {
-        const ing = data.ingredient.toLowerCase();
-        return ing.includes(searchtxt);
-    }).length;
+  return a.ingredients.filter((data) => {
+    const ing = data.ingredient.toLowerCase();
+    return ing.includes(searchtxt);
+  }).length;
 }
 
 /**
@@ -277,10 +277,10 @@ function filterIngredients(a, searchtxt) {
  * @returns La longueur du tableau des ustensiles qui correspondent au searchtxt.
  */
 function filterUstensiles(a, searchtxt) {
-    return a.ustensils.filter((ustensil) => {
-        const ust = ustensil.toLowerCase();
-        return ust.includes(searchtxt);
-    }).length;
+  return a.ustensils.filter((ustensil) => {
+    const ust = ustensil.toLowerCase();
+    return ust.includes(searchtxt);
+  }).length;
 }
 
 /* Écoute d'un événement keyup sur la barre de recherche. Si la longueur de l'entrée est supérieure à
@@ -289,18 +289,18 @@ function filterUstensiles(a, searchtxt) {
 const searchBar = document.querySelector(".input-theme");
 
 searchBar.addEventListener("keyup", (e) => {
-    if (e.target.value.length > 2) {
-        const searchtxt = e.target.value.toLowerCase();
-        filterCards(searchtxt);
-        const startTime = performance.now()
-        addIngredienttoDom(getFilteredData(searchtxt));
-        addAppareiltoDom(getFilteredData(searchtxt));
-        addUstensiletoDom(getFilteredData(searchtxt));
-        const endTime = performance.now()
-        console.log(`Call to doSomething took ${endTime - startTime} milliseconds`)
-    } else {
-        addCardstoDom(recipes);
-    }
+  if (e.target.value.length > 2) {
+    const searchtxt = e.target.value.toLowerCase();
+    filterCards(searchtxt);
+    const startTime = performance.now();
+    addIngredienttoDom(getFilteredData(searchtxt));
+    addAppareiltoDom(getFilteredData(searchtxt));
+    addUstensiletoDom(getFilteredData(searchtxt));
+    const endTime = performance.now();
+    console.log(`Call to doSomething took ${endTime - startTime} milliseconds`);
+  } else {
+    addCardstoDom(recipes);
+  }
 });
 
 /* Écoute d'un événement keyup sur la barre de recherche. Si la longueur de la barre de recherche est
@@ -312,14 +312,14 @@ addIngredienttoDom et passera le tableau des recettes. */
 const searchIng = document.querySelector(".blue");
 
 searchIng.addEventListener("keyup", (e) => {
-    if (e.target.value.length > 2) {
-        const searchtxt = e.target.value.toLowerCase();
-        addIngredienttoDom(recipes, searchtxt);
-        filterCards(searchtxt);
-    } else {
-        addCardstoDom(recipes);
-        addIngredienttoDom(recipes);
-    }
+  if (e.target.value.length > 2) {
+    const searchtxt = e.target.value.toLowerCase();
+    addIngredienttoDom(recipes, searchtxt);
+    filterCards(searchtxt);
+  } else {
+    addCardstoDom(recipes);
+    addIngredienttoDom(recipes);
+  }
 });
 
 /* Écoute d'un événement keyup sur l'élément searchApp. Si la longueur de la valeur de l'entrée est
@@ -331,14 +331,14 @@ addAppareiltoDom et passera dans le tableau des recettes */
 const searchApp = document.querySelector(".green");
 
 searchApp.addEventListener("keyup", (e) => {
-    if (e.target.value.length > 2) {
-        const searchtxt = e.target.value.toLowerCase();
-        addAppareiltoDom(recipes, searchtxt);
-        filterCards(searchtxt);
-    } else {
-        addCardstoDom(recipes);
-        addAppareiltoDom(recipes);
-    }
+  if (e.target.value.length > 2) {
+    const searchtxt = e.target.value.toLowerCase();
+    addAppareiltoDom(recipes, searchtxt);
+    filterCards(searchtxt);
+  } else {
+    addCardstoDom(recipes);
+    addAppareiltoDom(recipes);
+  }
 });
 
 /* Écoute d'un événement keyup sur la barre de recherche. Si la longueur de la barre de recherche est
@@ -347,14 +347,14 @@ affichera toutes les cartes et tous les ustensiles. */
 const searchUst = document.querySelector(".red");
 
 searchUst.addEventListener("keyup", (e) => {
-    if (e.target.value.length > 2) {
-        const searchtxt = e.target.value.toLowerCase();
-        addUstensiletoDom(recipes, searchtxt);
-        filterCards(searchtxt);
-    } else {
-        addCardstoDom(recipes);
-        addUstensiletoDom(recipes);
-    }
+  if (e.target.value.length > 2) {
+    const searchtxt = e.target.value.toLowerCase();
+    addUstensiletoDom(recipes, searchtxt);
+    filterCards(searchtxt);
+  } else {
+    addCardstoDom(recipes);
+    addUstensiletoDom(recipes);
+  }
 });
 
 /* Appel des fonctions pour ajouter les cartes au DOM. */
@@ -367,28 +367,28 @@ addUstensiletoDom(recipes);
 const dropdowns = document.querySelectorAll(".dropdown-toggle");
 
 dropdowns.forEach((el) => {
-    el.addEventListener("show.bs.dropdown", function(el) {
-        const inputEl = el.target.querySelector(".input-drop");
-        const dropdmenus = document.querySelector(el.target.id);
-        inputEl.style.width = "542px";
+  el.addEventListener("show.bs.dropdown", function (el) {
+    const inputEl = el.target.querySelector(".input-drop");
+    const dropdmenus = document.querySelector(el.target.id);
+    inputEl.style.width = "542px";
 
-        setTimeout(() => {
-            dropdmenus.style.opacity = "1";
-        }, 10);
-    });
+    setTimeout(() => {
+      dropdmenus.style.opacity = "1";
+    }, 10);
+  });
 
-    el.addEventListener("hide.bs.dropdown", function(el) {
-        const inputEl = el.target.querySelector(".input-drop");
-        const dropdmenus = document.querySelector(el.target.id);
-        inputEl.style.width = "170px";
-        dropdmenus.style.opacity = "0";
-    });
+  el.addEventListener("hide.bs.dropdown", function (el) {
+    const inputEl = el.target.querySelector(".input-drop");
+    const dropdmenus = document.querySelector(el.target.id);
+    inputEl.style.width = "170px";
+    dropdmenus.style.opacity = "0";
+  });
 });
 
 const list2class = {
-    list__ingredients: "tagIng",
-    list__appareils: "tagApp",
-    list__ustensiles: "tagUst",
+  list__ingredients: "tagIng",
+  list__appareils: "tagApp",
+  list__ustensiles: "tagUst",
 };
 
 /**
@@ -397,23 +397,23 @@ const list2class = {
  */
 
 function addTag(e) {
-    const tagsContent = document.querySelector(".newTags");
-    const tagText = e.target.textContent;
-    const tagType = e.target.parentNode.classList[0];
+  const tagsContent = document.querySelector(".newTags");
+  const tagText = e.target.textContent;
+  const tagType = e.target.parentNode.classList[0];
 
-    if (tags[list2class[tagType]].indexOf(tagText) === -1) {
-        const liElement = document.createElement("li");
-        liElement.setAttribute("class", list2class[tagType]);
+  if (tags[list2class[tagType]].indexOf(tagText) === -1) {
+    const liElement = document.createElement("li");
+    liElement.setAttribute("class", list2class[tagType]);
 
-        liElement.innerHTML = `${tagText} <i class="far fa-times-circle"></i>`;
-        liElement.querySelector(".far").addEventListener("click", (e) => {
-            liElement.remove();
-            const index = tags[list2class[tagType]].indexOf(tagText);
-            tags[list2class[tagType]].splice(index, 1);
-            filterCards();
-        });
-        tagsContent.appendChild(liElement);
-        tags[list2class[tagType]].push(tagText.toLowerCase());
-        filterCards();
-    }
+    liElement.innerHTML = `${tagText} <i class="far fa-times-circle"></i>`;
+    liElement.querySelector(".far").addEventListener("click", (e) => {
+      liElement.remove();
+      const index = tags[list2class[tagType]].indexOf(tagText);
+      tags[list2class[tagType]].splice(index, 1);
+      filterCards();
+    });
+    tagsContent.appendChild(liElement);
+    tags[list2class[tagType]].push(tagText.toLowerCase());
+    filterCards();
+  }
 }
