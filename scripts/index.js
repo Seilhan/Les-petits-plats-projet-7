@@ -315,7 +315,6 @@ searchIng.addEventListener("keyup", (e) => {
   if (e.target.value.length > 2) {
     const searchtxt = e.target.value.toLowerCase();
     addIngredienttoDom(recipes, searchtxt);
-    filterCards(searchtxt);
   } else {
     addCardstoDom(recipes);
     addIngredienttoDom(recipes);
@@ -334,7 +333,6 @@ searchApp.addEventListener("keyup", (e) => {
   if (e.target.value.length > 2) {
     const searchtxt = e.target.value.toLowerCase();
     addAppareiltoDom(recipes, searchtxt);
-    filterCards(searchtxt);
   } else {
     addCardstoDom(recipes);
     addAppareiltoDom(recipes);
@@ -350,7 +348,6 @@ searchUst.addEventListener("keyup", (e) => {
   if (e.target.value.length > 2) {
     const searchtxt = e.target.value.toLowerCase();
     addUstensiletoDom(recipes, searchtxt);
-    filterCards(searchtxt);
   } else {
     addCardstoDom(recipes);
     addUstensiletoDom(recipes);
